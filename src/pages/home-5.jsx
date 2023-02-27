@@ -6,36 +6,33 @@ import Home5 from "../components/home-5";
 import { setCategories } from "../features/products/categorySlice";
 import { setProducts } from "../features/products/productsSlice";
 
-const index = ({products}) => {
-  if(products){
+const Index = ({products}) => {
     const{categories,forsale,forrent}=products.data
     const dispatch = useDispatch()
     useEffect(()=>{
       dispatch(setCategories(categories))
-      dispatch(setProducts({forsale,forrent}))
-    },[categories])
+      dispatch(setProducts({forsale,forrent}));
+      return ()=>dispatch
+    },[products])
     return (
       <>
         <Seo pageTitle="Home-5" />
         <Home5 />
       </>
     );
-  }
+  
 };
 
-export default dynamic(() => Promise.resolve(index), { ssr: false });
+export default dynamic(() => Promise.resolve(Index), { ssr: false });
 
 export async function getStaticProps(context) {
   const product = await fetch('http://localhost:3000/api/products',{
-    headers:{
-      "content-type":"application/json"
-    },
     method:"get"
   })
   const products = await product.json()
-  console.log(products)
+  console.log(products,"werwer")
 
   return {
-    props: {products}, // will be passed to the page component as props
+    props: {products},
   }
 }

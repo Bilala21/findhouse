@@ -12,7 +12,7 @@ export const config = {
         bodyParser: true,
     },
 }
-export default async (req, res) => {
+export default function productFilter (req, res) {
     if (req.body.neighbourhood < 1) {
         delete req.body.neighbourhood
     }

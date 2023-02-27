@@ -4,6 +4,7 @@ import { sendResponse, notFound, dbError, fieldValidationError } from "../../../
 import PropertyForSale from "../../../../models/PropertyForSale"
 import PropertyForRent from "../../../../models/PropertyForRent"
 import Category from "../../../../models/Category"
+import asyncHandler from "express-async-handler"
 
 initDb()
 export const config = {
@@ -11,17 +12,16 @@ export const config = {
         bodyParser: true,
     },
 }
-export default async (req, res) => {
+export default asyncHandler(async (req, res) =>{
     let result = undefined;
     switch (req.method) {
-
         case "GET":
             const categories = await Category.find({}).collation({ locale: 'en', strength: 2 }).lean().exec()
             const forrent = await PropertyForRent.find({}).collation({ locale: 'en', strength: 2 }).lean().exec()
             const forsale = await PropertyForSale.find({}).collation({ locale: 'en', strength: 2 }).lean().exec()
             result = {categories, forsale, forrent }
             !result || result.length < 1 ? notFound(res, 404) : sendResponse(res, result, 200);
-
+            break;
         case "POST":
             const { parent_category_id, category_type, property_type } = req.body
             
@@ -36,8 +36,10 @@ export default async (req, res) => {
                 result = await PropertyForSale.create(req.body)               
             }           
             !result || result.length < 1 ? dbError(res, 404) : sendResponse(res, result, 200); 
+            break;
                        
         default:
             return res.json("Internal server error")
     }
-}
+})
+

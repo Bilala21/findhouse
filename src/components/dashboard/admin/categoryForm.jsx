@@ -5,7 +5,7 @@ import category_data from "../../../../static_data"
 import { useState } from "react";
 import axios from "axios";
 
-const index = () => {
+const Index = () => {
     const [subCate, setSubCate] = useState([]);
     const [subTypes, setTypes] = useState([]);
     const [formData, serFormData] = useState();
@@ -19,7 +19,6 @@ const index = () => {
             // })
             // console.log(posts)
         }
-        console.log(event.target.value)
         serFormData(prevState => {
             return { ...prevState, [event.target.id]: event.target.value }
         })
@@ -31,17 +30,20 @@ const index = () => {
             const { property_for_rent } = sub_categories[0];
             setSubCate(property_for_rent)
         }
-
-
     }
 
     const handleFormSubmission =async (event) => {
         event.preventDefault();
-        const posts = await axios.post("http://localhost:3000/api/category", {
-            body: formData
+        const res = await fetch('http://localhost:3000/api/category',{
+            method:"post",
+            formData
         })
+        // const posts = await axios.post("http://localhost:3000/api/category", {
+        //     body: formData,
+        // })
         console.log(formData)
     }
+
     return (
         <>
             {/* <!-- Main Header Nav --> */}
@@ -94,7 +96,7 @@ const index = () => {
                             {/* sub category */}
                             <div className="d-block">
                                 <div className="my_profile_setting_input ui_kit_select_search form-group">
-                                    <label>Status</label>
+                                    <label>Sub category</label>
                                     <select
                                         className="selectpicker form-select"
                                         data-live-search="true"
@@ -119,7 +121,7 @@ const index = () => {
                             {/* types */}
                             <div className="d-block">
                                 <div className="my_profile_setting_input ui_kit_select_search form-group">
-                                    <label>Status</label>
+                                    <label>Sub type</label>
                                     <select
                                         className="selectpicker form-select"
                                         data-live-search="true"
@@ -151,4 +153,4 @@ const index = () => {
     );
 };
 
-export default index;
+export default Index;
