@@ -1,0 +1,209 @@
+const mongoose = require('mongoose')
+
+const vihecleSchema = new mongoose.Schema({
+    sub_category_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: false,
+        ref: 'SubCategory'
+    },
+    title:{
+        type:String,
+        required:false
+    },
+    description:{
+        type:String,
+        required:false
+    },
+    condition:{
+        type:String,
+        required:false
+    },
+    city:{
+        type:String,
+        required:false
+    },
+    neighbourdhood:{
+        type:String,
+        required:false
+    },
+    maker:{
+        type:String,
+        required:false
+    },
+    model:{
+        type:String,
+        required:false
+    },
+    year:{
+        type:Date,
+        required:false
+    },
+    kilometers:{
+        type:String,
+        required:false
+    },
+    warranty:{
+        type:String,
+        required:false
+    },
+    color:{
+        type:String,
+        required:false
+    },
+    reginal_specs:{
+        type:String,
+        required:false
+    },
+
+    chassis_num:{
+        type:String,
+        required:false
+    },
+    transmission_type:{
+        type:String,
+        required:false
+    },
+    body_type:{
+        type:String,
+        required:false
+    },
+    doors:{
+        type:Number,
+        required:false
+    },
+    body_condition:{
+        type:String,
+        required:false
+    },
+    engine_condition:{
+        type:String,
+        required:false
+    },
+    cylinder:{
+        type:Number,
+        required:false
+    },
+    fuel_type:{
+        type:String,
+        required:false
+    },
+    steering_side:{
+        type:String,
+        required:false
+    },
+    seller_type:{
+        type:String,
+        required:false
+    },
+    extras:{
+        type:Array,
+        required:false
+    },
+    product_price:{
+        type:String,
+        required:false
+    },
+    call_for_price:{
+        type:Boolean,
+        required:false
+    },
+    quantity:{
+        type:Number,
+        required:false
+    },
+    media:{
+        type:Array,
+        required:false
+    }   
+})
+
+const bikeSchema = new mongoose.Schema({
+    sub_category_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: false,
+        ref: 'SubCategory'
+    },
+media:{
+type:Array,
+required:false
+},
+title:{
+type:String,
+required:false
+},
+description:{
+type:String,
+required:false
+},
+condition:{
+type:String,
+required:false
+},
+city:{
+type:String,
+required:false
+},
+neighbourhood:{
+type:String,
+required:false
+},
+bike_type:{
+type:String,
+required:false
+},
+maker:{
+type:String,
+required:false
+},
+year:{
+type:Date,
+required:false
+},
+kilometer:{
+type:String,
+required:false
+},
+warranty:{
+type:String,
+required:false
+},
+usage:{
+type:String,
+required:false
+},
+diven_system:{
+type:String,
+required:false
+},
+wheel:{
+type:Number,
+required:false
+},
+engine_size:{
+type:String,
+required:false
+},
+seller_type:{
+type:String,
+required:false
+},
+product_pricing:{
+type:String,
+required:false
+},
+call_for_pricing:{
+type:Boolean,
+required:false
+},
+quantity:{
+type:Number,
+required:false
+},
+location:{
+    type:String,
+    required:false
+}
+})
+
+module.exports = mongoose.model('VihecleModel', vihecleSchema)
+module.exports = mongoose.model('BikeModel', bikeSchema)
