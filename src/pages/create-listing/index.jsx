@@ -1,14 +1,39 @@
 import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import Seo from "../../components/common/seo";
 import CreateListing from "../../components/dashboard/create-listing";
+import { setCategories } from "../../features/products/categorySlice";
+import { addProductCategoriesToStroe } from "../../services/productsSlice";
 
-const index = () => {
-  return (
-    <>
-      <Seo pageTitle="Create Listing" />
-      <CreateListing />
-    </>
-  );
+const Index = ({ data }) => {
+  const [isLoading, setLoading] = useState(false)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    setLoading(true)
+    dispatch(addProductCategoriesToStroe(data))
+  }, [data])
+  if (isLoading) {
+    return (
+      <>
+        <Seo pageTitle="Create Listing" />
+        <CreateListing />
+      </>
+    );
+  }
+  return(
+    <>Loading...</>
+  )
 };
+export async function getServerSideProps() {
+  const res = await fetch("http://localhost:3000/api/category/get-categores", {
+    method: "get"
+  })
+  const data = (await res.json()).data
 
-export default dynamic(() => Promise.resolve(index), { ssr: false });
+  return { props: { data } }
+}
+export default dynamic(() => Promise.resolve(Index), { ssr: false });
+
+
+

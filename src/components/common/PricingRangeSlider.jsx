@@ -4,12 +4,13 @@ import InputRange from "react-input-range";
 import { useDispatch } from "react-redux";
 import { addPrice } from "../../features/properties/propertiesSlice";
 
-const RangeSlider = () => {
+const RangeSlider = ({filterFunction}) => {
     const [price, setPrice] = useState({ value: { min: 10000, max: 20000 } });
     const dispath = useDispatch();
 
-    const handleOnChange = (value) => {
+    const handleOnChange = (value,ev) => {
         setPrice({ value });
+        filterFunction(value)
     };
 
     // price add to state
@@ -54,7 +55,7 @@ const RangeSlider = () => {
                 maxValue={20000}
                 minValue={10000}
                 value={price.value}
-                onChange={(value) => handleOnChange(value)}
+                onChange={(value,ev) => handleOnChange(value,ev)}
             />
 
             <div className="slider-styled inside-slider" id="nft-slider"></div>

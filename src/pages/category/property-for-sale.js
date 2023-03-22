@@ -1,33 +1,36 @@
 import dynamic from "next/dynamic";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-
 import Seo from "../../components/common/seo";
 import GridV1 from "../../components/listing-grid/grid-v1";
 import { setFilterProducts } from "../../features/products/productsSlice";
-const index = ({ data }) => {
+const Index = ({ data }) => {
+
+    const [isLoading, setIsLoading] = useState(false)
     const dispatch = useDispatch()
+
     useEffect(() => {
-        dispatch(setFilterProducts([data]))
-    }, [data.products])
-    if (data) {
+        if (data.message === "success") {
+            setIsLoading(true)
+            dispatch(setFilterProducts([data.data]))
+        }
+    }, [data])
+
+    if (isLoading) {
         return (
             <>
-                <Seo pageTitle="Simple Listing – Grid V1" />
+                <Seo pageTitle="Simple Listing – Grid V1" />              
                 <GridV1 />
             </>
         );
     }
 };
-
-export default dynamic(() => Promise.resolve(index), { ssr: false });
-
 export async function getStaticProps(context) {
-    const product = await fetch(`http://localhost:3000/api/product-filter/property-for-sale`, {
-        method: "post"
-    })
-    const { data } = await product.json()
+    const res = await fetch(`http://localhost:3000/api/product-filter/property-for-sale`, { method: "get" })
+    const data = await res.json()
     return {
-        props: { data }
+        props: { data: data }, // will be passed to the page component as props
     }
 }
+export default dynamic(() => Promise.resolve(Index), { ssr: true });
+

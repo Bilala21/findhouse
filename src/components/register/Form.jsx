@@ -1,8 +1,44 @@
 import Link from "next/link";
+import { useState } from "react";
 
 const Form = () => {
+  const [user, setUser] = useState({})
+  const [auth, setAuth] = useState({})
+  const create = (ev) => {
+    ev.preventDefault();
+    fetch('http://localhost:3000/api/auth/create', {
+      method: "post",
+      body: JSON.stringify(user)
+    })
+      .then(res => res.json())
+      .then(data => setAuth(data))
+  }
+
+  const handleChange = (ev) => {
+    if (ev.target.name !== "policy" && ev.target.name !== "repassword") {
+      setUser(prevState => {
+        return {
+          ...prevState,
+          [ev.target.name]: ev.target.value
+        }
+      })
+    }
+  }
+  let message = ""
+  console.log(auth,'auth');
+  if (auth.status === 201) {
+    message = <div className="input-group mb-2 mr-sm-2 py-2 bg-success text-white">
+      <span className="mx-auto">Usre created</span>
+    </div>
+  }
+  if (auth.status === 409) {
+    message = <div className="input-group mb-2 mr-sm-2 py-2 bg-info text-dark">
+      <span className="mx-auto">{auth.message}</span>
+    </div>
+  }
+
   return (
-    <form action="#">
+    <form onSubmit={create}>
       <div className="heading text-center">
         <h3>Register to your account</h3>
         <p className="text-center">
@@ -13,13 +49,14 @@ const Form = () => {
         </p>
       </div>
       {/* End .heading */}
-
+      {message}
       <div className="form-group input-group ">
         <input
           type="text"
           className="form-control"
-          required
           placeholder="User Name"
+          name="username"
+          onChange={handleChange}
         />
         <div className="input-group-prepend">
           <div className="input-group-text">
@@ -31,10 +68,11 @@ const Form = () => {
 
       <div className="form-group input-group  ">
         <input
-          type="email"
+          type="text"
           className="form-control"
-          required
+          name="email"
           placeholder="Email"
+          onChange={handleChange}
         />
         <div className="input-group-prepend">
           <div className="input-group-text">
@@ -48,8 +86,9 @@ const Form = () => {
         <input
           type="password"
           className="form-control"
-          required
+          name="password"
           placeholder="Password"
+          onChange={handleChange}
         />
         <div className="input-group-prepend">
           <div className="input-group-text">
@@ -63,8 +102,9 @@ const Form = () => {
         <input
           type="password"
           className="form-control"
-          required
+          name="repassword"
           placeholder="Re-enter password"
+          onChange={handleChange}
         />
         <div className="input-group-prepend">
           <div className="input-group-text">
@@ -79,8 +119,9 @@ const Form = () => {
           className="form-check-input"
           type="checkbox"
           value=""
-          required
+          name="policy"
           id="terms"
+          onChange={handleChange}
         />
         <label className="form-check-label form-check-label" htmlFor="terms">
           I have read and accept the Terms and Privacy Policy?

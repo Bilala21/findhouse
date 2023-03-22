@@ -50,7 +50,34 @@ const data=[
             "Industrial for sale",
             "Staff accomm for rent",
             "Staff accomm for sale",
-        ]
+        ],
+        country_list:[
+            "pakistan",
+            "UAE",
+            "Qater",
+            "Sudi Arabia"
+        ],
+        city_list:[
+            "lahore",
+            "karachi",
+            "multan",
+            "dubai"
+        ],
+        amenties:[
+            "balcony",
+            "private pool",
+            "covered parking",
+            "shared gym",
+            "shared ASP",
+            "furnished",
+            "security",
+            "water view"
+        ],
+        neighbourhood:[
+            "pindi stop",
+            "twon ship",
+            "niazi ada"
+        ],
     }
 ]
 

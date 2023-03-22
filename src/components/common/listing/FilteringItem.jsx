@@ -1,193 +1,54 @@
 import { useEffect } from "react";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addFeatured,
-  addStatusType,
-} from "../../../features/filter/filterSlice";
-import {
-  addAmenities,
-  addAreaMax,
-  addAreaMin,
-  addBathrooms,
-  addBedrooms,
-  addGarages,
-  addKeyword,
-  addLocation,
-  addPrice,
-  addPropertyType,
-  addStatus,
-  addYearBuilt,
-  resetAmenities,
-} from "../../../features/properties/propertiesSlice";
 import PricingRangeSlider from "../../common/PricingRangeSlider";
-import { v4 as uuidv4 } from "uuid";
-import { useRouter } from "next/router";
 import { filterdProducts } from "../../../features/products/productsSlice";
+import static_data from "../../../../static_data"
+import { setSearchFilters } from "../../../features/filters/filterSlice";
 
 const FilteringItem = () => {
-  const [data] = useSelector(state => state.product.filterProducts)
-
-  const {
-    keyword,
-    location,
-    status,
-    propertyType,
-    bathrooms,
-    bedrooms,
-    garages,
-    yearBuilt,
-    area,
-    amenities,
-  } = useSelector((state) => state.properties);
-
-  // input state
-  const [getKeyword, setKeyword] = useState(keyword);
-  const [getLocation, setLocation] = useState(location);
-  const [getStatus, setStatus] = useState(status);
-  const [getPropertiesType, setPropertiesType] = useState(propertyType);
-  const [getBathroom, setBathroom] = useState(bathrooms);
-  const [getBedroom, setBedroom] = useState(bedrooms);
-  const [getGarages, setGarages] = useState(garages);
-  const [getBuiltYear, setBuiltYear] = useState(yearBuilt);
-  const [getAreaMin, setAreaMin] = useState(area.min);
-  const [getAreaMax, setAreaMax] = useState(area.max);
-
-  // advanced state
-  const [getAdvanced, setAdvanced] = useState([
-    { id: uuidv4(), name: "Air Conditioning" },
-    { id: uuidv4(), name: "Barbeque" },
-    { id: uuidv4(), name: "Gym" },
-    { id: uuidv4(), name: "Microwave" },
-    { id: uuidv4(), name: "TV Cable" },
-    { id: uuidv4(), name: "Lawn" },
-    { id: uuidv4(), name: "Refrigerator" },
-    { id: uuidv4(), name: "Swimming Pool" },
-    { id: uuidv4(), name: "WiFi" },
-    { id: uuidv4(), name: "Sauna" },
-    { id: uuidv4(), name: "Dryer" },
-    { id: uuidv4(), name: "Washer" },
-    { id: uuidv4(), name: "Laundry" },
-    { id: uuidv4(), name: "Outdoor Shower" },
-    { id: uuidv4(), name: "Window Coverings" },
-  ]);
-
   const dispath = useDispatch();
-
-  const Router = useRouter();
-
-  // keyword
-  useEffect(() => {
-    dispath(addKeyword(getKeyword));
-  }, [dispath, addKeyword, getKeyword]);
-
-  // location
-  useEffect(() => {
-    dispath(addLocation(getLocation));
-  }, [dispath, addLocation, getLocation]);
-
-  // status
-  useEffect(() => {
-    dispath(addStatus(getStatus));
-  }, [dispath, addStatus, getStatus]);
-
-  // properties type
-  useEffect(() => {
-    dispath(addPropertyType(getPropertiesType));
-  }, [dispath, addPropertyType, getPropertiesType]);
-
-  // bathroom
-  useEffect(() => {
-    dispath(addBathrooms(getBathroom));
-  }, [dispath, addBathrooms, getBathroom]);
-
-  // bedroom
-  useEffect(() => {
-    dispath(addBedrooms(getBedroom));
-  }, [dispath, addBedrooms, getBedroom]);
-
-  // garages
-  useEffect(() => {
-    dispath(addGarages(getGarages));
-  }, [dispath, addGarages, getGarages]);
-
-  // built years
-  useEffect(() => {
-    dispath(addYearBuilt(getBuiltYear));
-  }, [dispath, addYearBuilt, getBuiltYear]);
-
-  // area min
-  useEffect(() => {
-    dispath(dispath(addAreaMin(getAreaMin)));
-  }, [dispath, addAreaMin, getAreaMin]);
-
-  // area max
-  useEffect(() => {
-    dispath(dispath(addAreaMax(getAreaMax)));
-  }, [dispath, addAreaMax, getAreaMax]);
-
-  // clear filter
-  const clearHandler = () => {
-    clearAllFilters();
-  };
-
-  const clearAllFilters = () => {
-    setKeyword("");
-    setLocation("");
-    setStatus("");
-    setPropertiesType("");
-    dispath(addPrice({ min: 10000, max: 20000 }));
-    setBathroom("");
-    setBedroom("");
-    setBedroom("");
-    setGarages("");
-    setBuiltYear("");
-    setAreaMin("");
-    setAreaMax("");
-    dispath(resetAmenities());
-    dispath(addStatusType(""));
-    dispath(addFeatured(""));
-    clearAdvanced();
-  };
-
-  // clear advanced
-  const clearAdvanced = () => {
-    const changed = getAdvanced.map((item) => {
-      item.isChecked = false;
-      return item;
-    });
-    setAdvanced(changed);
-  };
-
-  // add advanced
-  const advancedHandler = (id) => {
-    const data = getAdvanced.map((feature) => {
-      if (feature.id === id) {
-        if (feature.isChecked) {
-          feature.isChecked = false;
-        } else {
-          feature.isChecked = true;
-        }
+  const hadleFilter = (event) => {
+    if (event.target.id === 'amenties') {
+      if (searchFilter['amenties'] !== undefined) {
+        dispath(setSearchFilters({ [event.target.id]: [...searchFilter['amenties'], event.target.value] }))
       }
-      return feature;
-    });
-
-    setAdvanced(data);
-  };
-  const { filterProducts } = useSelector(state => state.product)
-
-  const hadleFilter = (event) =>{
-    
-    const prod = filterProducts[0].products?.filter(item => item.parent_category_id === event.target.value)
-    console.log(event.target.value,"prod",prod)
-
-    dispath(filterdProducts(prod))
-  
+      if (searchFilter['amenties'] === undefined) {
+        dispath(setSearchFilters({ [event.target.id]: [event.target.value] }))
+      }
+    }
+    else if (event.target.id !== 'amenties') {
+      dispath(setSearchFilters({ [event.target.id]: event.target.value }))
+    }
   }
-  // data.childcategory
+  const { filterProducts } = useSelector(state => state.product)
+  const { searchFilter } = useSelector(state => state.filter)
 
-  if (data) {
+  useEffect(() => {
+    if (Object.keys(searchFilter).length) {
 
+      const products = filterProducts[0].products?.filter(function (item) {
+
+        for (var key in searchFilter) {
+          if (key !== "amenties") {
+            if (item[key] === undefined || item[key] != searchFilter[key])
+              return false;
+
+          }
+        }
+        if (key === "amenties") {
+          const rell = searchFilter[key].filter(arr1Item => !item[key].includes(arr1Item))
+             console.log(rell,"rell");
+          return rell;    
+        }
+        return true;
+      });
+      dispath(filterdProducts(products))
+    }
+  }, [searchFilter])
+
+  // item[key].every(amenty=>searchFilter[key].includes('balcony'))
+
+  if (filterProducts[0].products) {
     return (
       <ul className="sasw_list mb0">
         <li className="search_area">
@@ -196,8 +57,6 @@ const FilteringItem = () => {
               type="text"
               className="form-control"
               placeholder="keyword"
-              value={getKeyword}
-              onChange={(e) => setKeyword(e.target.value)}
             />
             <label>
               <span className="flaticon-magnifying-glass"></span>
@@ -206,59 +65,48 @@ const FilteringItem = () => {
         </li>
         {/* End li */}
 
-        <li className="search_area">
-          <div className="form-group mb-3">
-            <input
-              type="search"
-              className="form-control"
-              id="exampleInputEmail"
-              placeholder="Location"
-              value={getLocation}
-              onChange={(e) => setLocation(e.target.value)}
-            />
-            <label htmlFor="exampleInputEmail">
-              <span className="flaticon-maps-and-flags"></span>
-            </label>
-          </div>
-        </li>
-        {/* End li */}
-
+        {/* country */}
         <li>
           <div className="search_option_two">
             <div className="candidate_revew_select">
               <select
-                onChange={(e) => setStatus(e.target.value)}
                 className="selectpicker w100 show-tick form-select"
-                value={getStatus}
+                id="country"
+                name="country"
+                onChange={hadleFilter}
               >
-                <option value="">Status</option>
-                <option value="apartment">Apartment</option>
-                <option value="bungalow">Bungalow</option>
-                <option value="condo">Condo</option>
-                <option value="house">House</option>
-                <option value="land">Land</option>
-                <option value="single family">Single Family</option>
+                <option value="">Country</option>
+                {
+                  static_data[0].country_list?.map((item, index) => {
+                    return (
+                      <option value={item} key={item}>{item}</option>
+                    )
+                  })
+                }
               </select>
             </div>
           </div>
         </li>
-        {/* End li */}
 
+        {/* city */}
+        {/* End li */}
         <li>
           <div className="search_option_two">
             <div className="candidate_revew_select">
               <select
-                onChange={(e) => setPropertiesType(e.target.value)}
                 className="selectpicker w100 show-tick form-select"
-                value={getPropertiesType}
+                id="city"
+                name="city"
+                onChange={hadleFilter}
               >
-                <option value="">Property Type</option>
-                <option value="apartment">Apartment</option>
-                <option value="bungalow">Bungalow</option>
-                <option value="condo">Condo</option>
-                <option value="house">House</option>
-                <option value="land">Land</option>
-                <option value="single family">Single Family</option>
+                <option value="">City</option>
+                {
+                  static_data[0].city_list?.map((item, index) => {
+                    return (
+                      <option value={item} key={item}>{item}</option>
+                    )
+                  })
+                }
               </select>
             </div>
           </div>
@@ -276,7 +124,7 @@ const FilteringItem = () => {
               >
                 <option value="">Category Type</option>
                 {
-                  data.childcategory?.map(item => {
+                  filterProducts[0].products.childcategory?.map(item => {
                     return (
                       <option value={item._id} key={item._id}>{item.name}</option>
                     )
@@ -286,6 +134,7 @@ const FilteringItem = () => {
             </div>
           </div>
         </li>
+
         {/* End li */}
 
         <li>
@@ -315,9 +164,10 @@ const FilteringItem = () => {
           <div className="search_option_two">
             <div className="candidate_revew_select">
               <select
-                onChange={(e) => setBathroom(e.target.value)}
+                id="bathrooms"
+                name="bathrooms"
+                onChange={hadleFilter}
                 className="selectpicker w100 show-tick form-select"
-                value={getBathroom}
               >
                 <option value="">Bathrooms</option>
                 <option value="1">1</option>
@@ -336,9 +186,10 @@ const FilteringItem = () => {
           <div className="search_option_two">
             <div className="candidate_revew_select">
               <select
-                onChange={(e) => setBedroom(e.target.value)}
+                id="bedrooms"
+                name="bedrooms"
+                onChange={hadleFilter}
                 className="selectpicker w100 show-tick form-select"
-                value={getBedroom}
               >
                 <option value="">Bedrooms</option>
                 <option value="1">1</option>
@@ -353,46 +204,6 @@ const FilteringItem = () => {
         </li>
         {/* End li */}
 
-        <li>
-          <div className="search_option_two">
-            <div className="candidate_revew_select">
-              <select
-                onChange={(e) => setGarages(e.target.value)}
-                className="selectpicker w100 show-tick form-select"
-                value={getGarages}
-              >
-                <option value="">Garages</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-                <option value="other">Others</option>
-              </select>
-            </div>
-          </div>
-        </li>
-        {/* End li */}
-
-        <li>
-          <div className="search_option_two">
-            <div className="candidate_revew_select">
-              <select
-                onChange={(e) => setBuiltYear(e.target.value)}
-                className="selectpicker w100 show-tick form-select"
-                value={getBuiltYear}
-              >
-                <option value="">Year built</option>
-                <option value="2013">2013</option>
-                <option value="2014">2014</option>
-                <option value="2015">2015</option>
-                <option value="2016">2016</option>
-                <option value="2017">2017</option>
-                <option value="2018">2018</option>
-                <option value="2019">2019</option>
-                <option value="2020">2020</option>
-              </select>
-            </div>
-          </div>
-        </li>
-        {/* End li */}
 
         <li className="min_area list-inline-item">
           <div className="form-group mb-4">
@@ -401,8 +212,6 @@ const FilteringItem = () => {
               className="form-control"
               id="exampleInputName2"
               placeholder="Min Area"
-              value={getAreaMin}
-              onChange={(e) => setAreaMin(e.target.value)}
             />
           </div>
         </li>
@@ -415,14 +224,12 @@ const FilteringItem = () => {
               className="form-control"
               id="exampleInputName3"
               placeholder="Max Area"
-              value={getAreaMax}
-              onChange={(e) => setAreaMax(e.target.value)}
             />
           </div>
         </li>
         {/* End li */}
 
-        <li>
+        <li className="d-none">
           <div id="accordion" className="panel-group">
             <div className="panel">
               <div className="panel-heading">
@@ -443,7 +250,7 @@ const FilteringItem = () => {
                 <div className="panel-body row">
                   <div className="col-lg-12">
                     <ul className="ui_kit_checkbox selectable-list fn-400">
-                      {getAdvanced?.map((feature) => (
+                      {/* {getAdvanced?.map((feature) => (
                         <li key={feature.id}>
                           <div className="form-check custom-checkbox">
                             <input
@@ -465,7 +272,7 @@ const FilteringItem = () => {
                             </label>
                           </div>
                         </li>
-                      ))}
+                      ))} */}
                     </ul>
                   </div>
                 </div>
@@ -476,9 +283,32 @@ const FilteringItem = () => {
         {/* End li */}
 
         <li>
+          <div className="search_option_two">
+            <div className="candidate_revew_select">
+              <select
+                id="amenties"
+                name="amenties"
+                onChange={hadleFilter}
+                className="selectpicker w100 show-tick form-select"
+              >
+                <option value="">Amenties</option>
+                {
+                  static_data[0].amenties?.map(item => {
+                    return (
+                      <option value={item}>{item}</option>
+                    )
+                  })
+                }
+              </select>
+            </div>
+          </div>
+        </li>
+        {/* End li */}
+
+        <li>
           <div className="search_option_button">
             <button
-              onClick={clearHandler}
+
               type="button"
               className="btn btn-block btn-thm w-100"
             >

@@ -13,6 +13,10 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    role:{
+        type:String,
+        default:0
+    }
 })
 
-module.exports =mongoose.models.user || mongoose.model('user', userSchema)
+module.exports =mongoose.models.User || mongoose.model('User', userSchema)

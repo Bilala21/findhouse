@@ -5,7 +5,7 @@ const PropertyMediaUploader = () => {
   const [propertySelectedImgs, setPropertySelectedImgs] = useState([]);
 
   // multiple image select
-  const multipleImage = (e) => {
+  const handleFormData = (e, field_name) => {
     // checking is same file matched with old stored array
     const isExist = propertySelectedImgs?.some((file1) =>
       selectedFiles(e)?.some((file2) => file1.name === file2.name)
@@ -62,7 +62,7 @@ const PropertyMediaUploader = () => {
         <div className="portfolio_upload">
           <input
             type="file"
-            onChange={multipleImage}
+            onChange={(event)=>handleFormData(event,"media")}
             multiple
             accept="image/png, image/gif, image/jpeg"
           />

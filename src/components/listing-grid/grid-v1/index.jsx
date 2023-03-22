@@ -1,4 +1,6 @@
 
+import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 import Pagination from "../../common/blog/Pagination";
 import CopyrightFooter from "../../common/footer/CopyrightFooter";
 import Footer from "../../common/footer/Footer";
@@ -12,8 +14,11 @@ import PopupSignInUp from "../../common/PopupSignInUp";
 import BreadCrumb2 from "./BreadCrumb2";
 import FeaturedItem from "./FeaturedItem";
 
-const index = () => {
-
+const index = ({ filterFunction }) => {
+  const router = useRouter()
+  const category_name = router.asPath.slice(router.asPath.lastIndexOf('/') + 1);
+  const { vehicles_data, vehicle_categories, vehilce_filterd_data } = useSelector(state => state.vehicles);
+  const { data } = vehilce_filterd_data
 
   return (
     <>
@@ -42,7 +47,7 @@ const index = () => {
               {/* End list grid */}
 
               <div className="dn db-991 mt30 mb0">
-                <ShowFilter />
+                {/* <ShowFilter /> */}
               </div>
               {/* ENd button for mobile sidebar show  */}
             </div>
@@ -53,7 +58,7 @@ const index = () => {
           <div className="row">
             <div className="col-lg-4 col-xl-4">
               <div className="sidebar-listing-wrapper">
-                <SidebarListing />
+                <SidebarListing sub_categories={vehicle_categories} category_name={category_name} filterFunction={(ev) => filterFunction(ev)} />
               </div>
               {/* End SidebarListing */}
 
@@ -74,7 +79,7 @@ const index = () => {
                 {/* End .offcanvas-heade */}
 
                 <div className="offcanvas-body">
-                  <SidebarListing />
+                  {/* <SidebarListing /> */}
                 </div>
               </div>
               {/* End mobile sidebar listing  */}
@@ -90,18 +95,20 @@ const index = () => {
               {/* End .row */}
 
               <div className="row">
-                <FeaturedItem />
+                <FeaturedItem vehicles_data={vehicles_data} category_name={category_name} products={data} />
               </div>
               {/* End .row */}
-
-              <div className="row">
-                <div className="col-lg-12 mt20">
-                  <div className="mbp_pagination">
-                    <Pagination />
+              {
+                data?.length > 0 &&
+                <div className="row">
+                  <div className="col-lg-12 mt20">
+                    <div className="mbp_pagination">
+                      <Pagination vehicles_data={vehicles_data} />
+                    </div>
                   </div>
+                  {/* End paginaion .col */}
                 </div>
-                {/* End paginaion .col */}
-              </div>
+              }
               {/* End .row */}
             </div>
             {/* End  page conent */}

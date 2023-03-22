@@ -1,4 +1,8 @@
-const Pagination = () => {
+const Pagination = ({ vehicles_data }) => {
+  const pages = []
+  for (let i = 0; i < vehicles_data[0].length / 5; i++) {
+    pages.push(i)
+  }
   return (
     <ul className="page_navigation">
       <li className="page-item disabled">
@@ -7,31 +11,17 @@ const Pagination = () => {
           <span className="flaticon-left-arrow"></span>
         </a>
       </li>
-      <li className="page-item">
-        <a className="page-link" href="#">
-          1
-        </a>
-      </li>
-      <li className="page-item active" aria-current="page">
-        <a className="page-link" href="#">
-          2 <span className="sr-only">(current)</span>
-        </a>
-      </li>
-      <li className="page-item">
-        <a className="page-link" href="#">
-          3
-        </a>
-      </li>
-      <li className="page-item">
-        <a className="page-link" href="#">
-          ...
-        </a>
-      </li>
-      <li className="page-item">
-        <a className="page-link" href="#">
-          29
-        </a>
-      </li>
+      {
+        pages.map(item => {
+          return (
+            <li className="page-item active">
+              <a className="page-link" href={`category/vehicles/page=${item}`}>
+                {item+1}
+              </a>
+            </li>
+          )
+        })
+      }
       <li className="page-item">
         <a className="page-link" href="#">
           <span className="flaticon-right-arrow"></span>

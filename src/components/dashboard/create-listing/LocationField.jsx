@@ -1,4 +1,6 @@
-const LocationField = () => {
+const LocationField = ({handleFormData}) => {
+
+ 
   return (
     <>
       <div className="col-lg-12">
@@ -20,15 +22,16 @@ const LocationField = () => {
       <div className="col-lg-6 col-xl-6">
         <div className="my_profile_setting_input form-group">
           <label htmlFor="propertyCity">City</label>
-          <input type="text" className="form-control" id="propertyCity" />
+          <input type="text" className="form-control" id="city" name="city"  onChange={(event) => handleFormData(event, "city")}/>
         </div>
       </div>
       {/* End .col */}
 
       <div className="col-lg-4 col-xl-4">
         <div className="my_profile_setting_input form-group">
-          <label htmlFor="neighborHood">Neighborhood</label>
-          <input type="text" className="form-control" id="neighborHood" />
+          <label htmlFor="neighborHood">Neighbourdhood</label>
+          <input type="text" className="form-control" name="neighbourdhood" id="neighbourdhood"  onChange={(event) => handleFormData(event, "neighbourdhood")}
+          />
         </div>
       </div>
       {/* End .col */}
@@ -36,7 +39,8 @@ const LocationField = () => {
       <div className="col-lg-4 col-xl-4">
         <div className="my_profile_setting_input form-group">
           <label htmlFor="zipCode">Zip</label>
-          <input type="text" className="form-control" id="zipCode" />
+          <input type="text" className="form-control" id="zipCode" name="zip_code"
+          onChange={(event) => handleFormData(event, "zip_code")}/>
         </div>
       </div>
       {/* End .col */}
@@ -48,6 +52,9 @@ const LocationField = () => {
             className="selectpicker form-select"
             data-live-search="true"
             data-width="100%"
+            name="country"
+            id="country"
+            onChange={(event) => handleFormData(event, "country")}
           >
             <option data-tokens="Turkey">Turkey</option>
             <option data-tokens="Iran">Iran</option>

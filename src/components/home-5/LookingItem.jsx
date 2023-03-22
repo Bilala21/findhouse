@@ -14,7 +14,7 @@ const LookingItem = () => {
               <div className="icon">
                 <Link href={"category/"+category.slug}>
                   <a>
-                    {/* <span className={item.icon}></span> */}
+                    <span className="flaticon-house"></span>
                     <p>{category.name}</p>
                   </a>
                 </Link>

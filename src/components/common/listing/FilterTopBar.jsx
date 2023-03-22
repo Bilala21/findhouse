@@ -32,26 +32,28 @@ const FilterTopBar = () => {
 
   return (
     <>
-      <div className="col-sm-12 col-md-4 col-lg-4 col-xl-5">
-        <div className="left_area tac-xsd">
-          <p>
-            <span className={length === 0 ? "text-danger" : undefined}>
-              {length}{" "}
-            </span>
-            {length !== 0 ? (
-              "Search results"
-            ) : (
-              <span className="text-danger">Not found results</span>
-            )}
-          </p>
-        </div>
-      </div>
-      {/* End .col */}
-
-      <div className="col-sm-12 col-md-8 col-lg-8 col-xl-7">
+      <div className="col-12">
         <div className="right_area text-end tac-xsd">
-          <ul>
-            <li className="list-inline-item">
+          <ul className="d-flex align-items-center">
+            <li className="list-inline-item d-flex align-items-center">
+              <span className="stts me-2">SHOW:</span>
+              <select class="custom-select border py-2 px-2 rounded" name="entries_per_page" id="entries_per_page">
+                <option value="15">15</option>
+                <option value="30">30</option>
+                <option value="60">60</option>
+              </select>
+            </li>
+            <li className="list-inline-item d-flex align-items-center">
+              <span className="stts me-2">SORT BY:</span>
+              <select class="custom-select border rounded py-2 px-1" name="sort_by" id="sort_by">
+                <option value="">Sort By</option>
+                <option value="popularity">Popularity</option>
+                <option value="price_low_to_high">Price (Low To High)</option>
+                <option value="price_high_to_low">Price (High To Low)</option>
+                <option value="newly_added">Newly Added</option>
+              </select>
+            </li>
+            <li className="list-inline-item d-none">
               <span className="stts">Status:</span>
               <select
                 className="selectpicker show-tick"
@@ -63,7 +65,7 @@ const FilterTopBar = () => {
                 <option value="recent">Recent</option>
               </select>
             </li>
-            <li className="list-inline-item">
+            <li className="list-inline-item d-none">
               <span className="shrtby">Sort by:</span>
               <select
                 className="selectpicker show-tick"

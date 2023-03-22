@@ -33,12 +33,12 @@ const propertyForSaleSchema = new Schema({
         type:String,
         required:false
     },
-    neighbourdhood:{
+    neighbourhood:{
         type:Array,
         required:false
     },
     video_link:{
-        type:Array,
+        type:String,
         required:false
     },
     property_type:{
@@ -124,6 +124,10 @@ const propertyForSaleSchema = new Schema({
     slug:{
         type:String,
         required:false
+    },
+    owner_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
     }
 },
 {

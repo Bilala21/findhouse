@@ -14,7 +14,7 @@ const Hero = () => {
                   From as low as $10 per day with limited time offer discounts.
                 </p>
                 <h4>What are you looking for?</h4>
-                <ul className="mb0">
+                <ul className="mb0 d-flex">
                   <LookingItem />
                 </ul>
               </div>

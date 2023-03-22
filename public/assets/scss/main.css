@@ -19740,3 +19740,10 @@ button.gm-ui-hover-effect:focus {
 .pro-sidebar .pro-menu a.ui-active {
   color: var(--color-primary) !important;
 }
+.kilometers{
+  max-width: 80px;
+    height: 50px;
+    text-align: center;
+}
+.custom-select::after{
+}

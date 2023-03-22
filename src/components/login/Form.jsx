@@ -1,8 +1,40 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import redirectAfterAuthenticate from "../../../middleware/redirectAfterAuthenticate";
+import {getSession, signIn} from "next-auth/client"
 
 const Form = () => {
+  const [user, setUser] = useState({})
+  const [auth, setAuth] = useState({})
+  const router = useRouter()
+  const login = async (ev) => {
+    ev.preventDefault();
+    const logdInuser = await signIn("credentials",{...user,redirect:false})
+    const session = await getSession();
+    console.log(session);
+  }
+
+  const handleChange = (ev) => {
+    if (ev.target.name !== "policy" && ev.target.name !== "repassword") {
+      setUser(prevState => {
+        return {
+          ...prevState,
+          [ev.target.name]: ev.target.value
+        }
+      })
+    }
+  }
+
+
+  let error_message=""
+  if (auth.status === 404) {
+    error_message = <div className="input-group mb-2 mr-sm-2 py-2 bg-danger text-white">
+      <span className="mx-auto">{auth.message}</span>
+    </div>
+  }
   return (
-    <form action="#">
+    <form onSubmit={login}>
       <div className="heading text-center">
         <h3>Login to your account</h3>
         <p className="text-center">
@@ -12,14 +44,15 @@ const Form = () => {
           </Link>
         </p>
       </div>
-      {/* End .heading */}
-
+      {error_message}
       <div className="input-group mb-2 mr-sm-2">
         <input
           type="text"
           className="form-control"
           required
           placeholder="User Name Or Email"
+          name="email"
+          onChange={handleChange}
         />
         <div className="input-group-prepend">
           <div className="input-group-text">
@@ -35,6 +68,8 @@ const Form = () => {
           className="form-control"
           required
           placeholder="Password"
+          name="password"
+          onChange={handleChange}
         />
         <div className="input-group-prepend">
           <div className="input-group-text">
