@@ -10,6 +10,7 @@ import {
 } from "react-pro-sidebar";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 const home = [
   {
@@ -307,7 +308,7 @@ const MobileMenuContent = () => {
         <div className="sidebar-header">
           <Link href="/">
             <a className="sidebar-header-inner">
-              <img
+              <Image
                 className="nav_logo_img img-fluid mt20"
                 src="/assets/images/header-logo2.png"
                 alt="header-logo.png"

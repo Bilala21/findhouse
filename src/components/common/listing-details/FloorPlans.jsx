@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const FloorPlans = () => {
   return (
     <div className="accordion" id="accordionExample">
@@ -37,7 +39,7 @@ const FloorPlans = () => {
           data-bs-parent="#accordionExample"
         >
           <div className="card-body text-center">
-            <img
+            <Image
               className="img-fluid"
               src="/assets/images/resource/floor_plan.png"
               alt="floor_plan.png"
@@ -88,7 +90,7 @@ const FloorPlans = () => {
           data-bs-parent="#accordionExample"
         >
           <div className="card-body text-center">
-            <img
+            <Image
               className="img-fluid"
               src="/assets/images/resource/floor_plan.png"
               alt="floor_plan.png"

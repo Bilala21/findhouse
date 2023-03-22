@@ -34,7 +34,7 @@ const SidebarListing = ({ sub_categories, category_name, filterFunction }) => {
               {
                 static_data[0].country_list?.map((item, index) => {
                   return (
-                    <option value={item} key={item._id}>{item}</option>
+                    <option value={item} key={"item"+item}>{item}</option>
                   )
                 })
               }
@@ -293,7 +293,7 @@ const SidebarListing = ({ sub_categories, category_name, filterFunction }) => {
                     {
                       static_data[0].amenties?.map(item => {
                         return (
-                          <option value={item}>{item}</option>
+                          <option value={item} key={"sd"+item}>{item}</option>
                         )
                       })
                     }

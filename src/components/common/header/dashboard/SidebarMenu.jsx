@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import {
@@ -39,7 +40,7 @@ const SidebarMenu = () => {
                 <li className="sidebar_header header">
                     <Link href="/">
                         <a>
-                            <img
+                            <Image
                                 src="/assets/images/header-logo2.png"
                                 alt="header-logo2.png"
                             />

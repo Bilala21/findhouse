@@ -10,6 +10,7 @@ import PopupSignInUp from "../../components/common/PopupSignInUp";
 import properties from "../../data/properties";
 import DetailsContent from "../../components/listing-details-v1/DetailsContent";
 import Sidebar from "../../components/listing-details-v1/Sidebar";
+import Image from "next/image";
 
 const ListingDynamicDetailsV1 = () => {
   const router = useRouter();
@@ -97,7 +98,7 @@ const ListingDynamicDetailsV1 = () => {
                       >
                         {({ ref, open }) => (
                           <div role="button" ref={ref} onClick={open}>
-                            <img
+                            <Image
                               className="img-fluid w100 cover lds-1"
                               src={property.img}
                               alt="1.jpg"
@@ -124,7 +125,7 @@ const ListingDynamicDetailsV1 = () => {
                         >
                           {({ ref, open }) => (
                             <div role="button" ref={ref} onClick={open}>
-                              <img
+                              <Image
                                 className="img-fluid w100"
                                 src={val}
                                 alt="2.jpg"

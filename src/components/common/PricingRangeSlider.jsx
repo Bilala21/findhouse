@@ -21,7 +21,7 @@ const RangeSlider = ({filterFunction}) => {
                 max: price.value.max,
             })
         );
-    }, [dispath, price, addPrice]);
+    }, [dispath, price]);
 
     return (
         <div className="nft__filter-price tp-range-slider tp-range-slider-dark mb-20">

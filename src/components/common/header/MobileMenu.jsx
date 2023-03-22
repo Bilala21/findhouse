@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import MobileMenuContent from "./MobileMenuContent";
 
@@ -8,7 +9,7 @@ const MobileMenu = () => {
       <div className="mobile-menu">
         <div className="header stylehome1">
           <div className="main_logo_home2 text-center">
-            <img
+            <Image
               className="nav_logo_img img-fluid mt20"
               src="/assets/images/header-logo2.png"
               alt="header-logo2.png"

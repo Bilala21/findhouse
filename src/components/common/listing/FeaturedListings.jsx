@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import featureContent from "../../../data/properties";
 
@@ -8,7 +9,7 @@ const FeaturedListings = () => {
         <div className="media d-flex" key={item.id}>
           <Link href={`/listing-details-v1/${item.id}`}>
             <a>
-              <img
+              <Image
                 className="align-self-start me-3"
                 src={item.img}
                 alt="featured listing image"

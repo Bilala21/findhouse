@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const PropertyLocation = () => {
   return (
     <>
@@ -13,7 +15,7 @@ const PropertyLocation = () => {
         </div>
         <div className="overlay_icon">
           <a href="#">
-            <img
+            <Image
               className="map_img_icon"
               src="/assets/images/header-logo.png"
               alt="header-logo.png"

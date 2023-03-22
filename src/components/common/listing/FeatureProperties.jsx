@@ -1,5 +1,6 @@
 import featureProContent from "../../../data/properties";
 import Slider from "react-slick";
+import Image from "next/image";
 
 const FeatureProperties = () => {
     const settings = {
@@ -19,7 +20,7 @@ const FeatureProperties = () => {
                     <div className="item" key={item.id}>
                         <div className="feat_property home7">
                             <div className="thumb">
-                                <img
+                                <Image
                                     className="img-whp"
                                     src={item.img}
                                     alt="properties identity"

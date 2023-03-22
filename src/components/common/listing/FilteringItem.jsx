@@ -44,7 +44,8 @@ const FilteringItem = () => {
       });
       dispath(filterdProducts(products))
     }
-  }, [searchFilter])
+  }, [dispath,filterProducts,searchFilter])
+  // [dispath,searchFilter]
 
   // item[key].every(amenty=>searchFilter[key].includes('balcony'))
 
@@ -79,7 +80,7 @@ const FilteringItem = () => {
                 {
                   static_data[0].country_list?.map((item, index) => {
                     return (
-                      <option value={item} key={item}>{item}</option>
+                      <option value={item} key={"st1"+index}>{item}</option>
                     )
                   })
                 }
@@ -295,7 +296,7 @@ const FilteringItem = () => {
                 {
                   static_data[0].amenties?.map(item => {
                     return (
-                      <option value={item}>{item}</option>
+                      <option value={item} key={"n1"+item}>{item}</option>
                     )
                   })
                 }

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const LoginSignup = () => {
@@ -65,7 +66,7 @@ const LoginSignup = () => {
                     >
                         <div className="col-lg-6 col-xl-6">
                             <div className="login_thumb">
-                                <img
+                                <Image
                                     className="img-fluid w100"
                                     src="/assets/images/resource/login.jpg"
                                     alt="login.jpg"
@@ -188,7 +189,7 @@ const LoginSignup = () => {
                     >
                         <div className="col-lg-6 col-xl-6">
                             <div className="regstr_thumb">
-                                <img
+                                <Image
                                     className="img-fluid w100"
                                     src="/assets/images/resource/regstr.jpg"
                                     alt="regstr.jpg"

@@ -14,7 +14,7 @@ import PopupSignInUp from "../../common/PopupSignInUp";
 import BreadCrumb2 from "./BreadCrumb2";
 import FeaturedItem from "./FeaturedItem";
 
-const index = ({ filterFunction }) => {
+const Index = ({ filterFunction }) => {
   const router = useRouter()
   const category_name = router.asPath.slice(router.asPath.lastIndexOf('/') + 1);
   const { vehicles_data, vehicle_categories, vehilce_filterd_data } = useSelector(state => state.vehicles);
@@ -136,5 +136,5 @@ const index = ({ filterFunction }) => {
   );
 };
 
-export default index;
+export default Index;
 

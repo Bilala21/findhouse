@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { isSinglePageActive } from "../../../../utils/daynamicNavigation";
@@ -7,7 +8,7 @@ const MyAccount = () => {
   return (
     <>
       <div className="user_set_header">
-        <img
+        <Image
           className="float-start"
           src="/assets/images/team/e1.png"
           alt="e1.png"

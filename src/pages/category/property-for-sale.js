@@ -25,7 +25,7 @@ const Index = ({ data }) => {
         );
     }
 };
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
     const res = await fetch(`http://localhost:3000/api/product-filter/property-for-sale`, { method: "get" })
     const data = await res.json()
     return {

@@ -1,6 +1,7 @@
 import { Gallery, Item } from "react-photoswipe-gallery";
 import "photoswipe/dist/photoswipe.css";
 import propertiesContent from "../../../data/properties";
+import Image from "next/image";
 
 const ListingGallery = () => {
   return (
@@ -67,7 +68,7 @@ const ListingGallery = () => {
                       >
                         {({ ref, open }) => (
                           <div role="button" ref={ref} onClick={open}>
-                            <img
+                            <Image
                               className="img-fluid w100 lds-1"
                               src={singleItem.img}
                               alt="1.jpg"
@@ -94,7 +95,7 @@ const ListingGallery = () => {
                         >
                           {({ ref, open }) => (
                             <div role="button" ref={ref} onClick={open}>
-                              <img
+                              <Image
                                 className="img-fluid w100"
                                 src={val}
                                 alt="2.jpg"

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import MyAccount from "./MyAccount";
@@ -470,7 +471,7 @@ const HeaderMenuContent = ({ float = "" }) => {
       <li className="user_setting">
         <div className="dropdown">
           <a className="btn dropdown-toggle" href="#" data-bs-toggle="dropdown">
-            <img
+            <Image
               className="rounded-circle"
               src="/assets/images/team/e1.png"
               alt="e1.png"

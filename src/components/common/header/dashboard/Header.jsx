@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import HeaderMenuContent from "./HeaderMenuContent";
@@ -27,12 +28,12 @@ const Header = () => {
         {/* <!-- Menu Toggle btn--> */}
         <Link href="/">
           <a className="navbar_brand float-start dn-smd">
-            <img
+            <Image
               className="logo1 img-fluid"
               src="/assets/images/header-logo2.png"
               alt="header-logo2.png"
             />
-            <img
+            <Image
               className="logo2 img-fluid"
               src="/assets/images/header-logo2.png"
               alt="header-logo2.png"

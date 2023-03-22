@@ -4,9 +4,9 @@ import { useDispatch } from "react-redux";
 import Seo from "../components/common/seo";
 import { setCategories } from "../features/products/categorySlice";
 import { setProducts } from "../features/products/productsSlice";
-import Index from "./home-5"
+import Home from "./home-5"
 
-const index = ({ data }) => {
+const Index = ({ data }) => {
   const [isLoading, setIsLoading] = useState(false)
   const dispatch = useDispatch()
 
@@ -23,7 +23,7 @@ const index = ({ data }) => {
     return (
       <>
         <Seo pageTitle="Home-1" />
-        <Index />
+        <Home />
       </>
     );
   }
@@ -33,8 +33,8 @@ const index = ({ data }) => {
 };
 
 
-export async function getStaticProps(context) {
-  const res = await fetch(`findehouse.staging-bk.site/api`, { method: "get" })
+export async function getServerSideProps(context) {
+  const res = await fetch("https://findehouse.staging-bk.site/api", { method: "get" })
   const data = await res.json()
   return {
     props: { data: data }, // will be passed to the page component as props
@@ -48,5 +48,5 @@ export async function getStaticProps(context) {
 //   }
 // }
 
-export default dynamic(() => Promise.resolve(index), { ssr: true });
+export default dynamic(() => Promise.resolve(Index), { ssr: true });
 
