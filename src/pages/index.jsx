@@ -33,20 +33,20 @@ const Index = ({ data }) => {
 };
 
 
-export async function getServerSideProps(context) {
-  const res = await fetch("https://findehouse.staging-bk.site/api", { method: "get" })
-  const data = await res.json()
-  return {
-    props: { data: data }, // will be passed to the page component as props
-  }
-}
-// export async function getStaticProps(context) {
-//   const res = await fetch(`http://localhost:3000/api`, { method: "get" })
+// export async function getServerSideProps(context) {
+//   const res = await fetch("https://property-testing.staging-bk.site/api", { method: "get" })
 //   const data = await res.json()
 //   return {
 //     props: { data: data }, // will be passed to the page component as props
 //   }
 // }
+export async function getServerSideProps(context) {
+  const res = await fetch(`http://localhost:3000/api`, { method: "get" })
+  const data = await res.json()
+  return {
+    props: { data: data }, // will be passed to the page component as props
+  }
+}
 
 export default dynamic(() => Promise.resolve(Index), { ssr: true });
 
